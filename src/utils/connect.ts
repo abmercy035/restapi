@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 async function connect() {
-	const dbUri = "mongodb://localhost:27017/rest-api-test";
-	// const dbUri = config.get<string>("dbUri")
+	const dbUri = process.env.dbUri
 	try {
 		await mongoose.connect(dbUri);
 		console.log("Connected to DB")
