@@ -1,0 +1,8 @@
+node_modules
+.DS_Store
+build
+index.html
+flyio-new-files
+config
+.vercel
+pnpm-lock.yaml
