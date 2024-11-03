@@ -2,7 +2,7 @@ import "dotenv"
 import jwt from 'jsonwebtoken';
 import config from 'config';
 // const privateKey = config.get<string>('privateKey');
-const privateKey = process.env.private_key;
+const PRIVATEKEY = process.env.PRIVATEKEY;
 // const publicKey = config.get<string>('publicKey');
 // Define interface for JWT payload
 interface JwtPayload {
@@ -11,7 +11,7 @@ interface JwtPayload {
 	exp?: number;
 }
 function signJwt(object: Object, options?: jwt.SignOptions | undefined) {
-	return jwt.sign({ id: object }, privateKey, {
+	return jwt.sign({ id: object }, PRIVATEKEY, {
 		...(options && options),
 	})
 }
@@ -22,7 +22,7 @@ function verifyJwt(token: string): {
 } {
 	try {
 
-		const decoded = jwt.verify(token, privateKey) as JwtPayload;
+		const decoded = jwt.verify(token, PRIVATEKEY) as JwtPayload;
 		return {
 			valid: true,
 			expired: false,
