@@ -6,3 +6,4 @@ flyio-new-files
 config
 .vercel
 pnpm-lock.yaml
+.env

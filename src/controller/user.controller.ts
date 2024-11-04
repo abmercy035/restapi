@@ -15,7 +15,7 @@ export async function createUserHandler(req: Request, res: Response): Promise<vo
 
 		const user = await createUser({ ...rest, password: hashedPassword })
 		const token = signJwt(user._id, { expiresIn: "1d" })
-		log({ msg: "token:", token })
+		// log({ msg: "token:", token })
 		res.cookie('token', token, {
 			httpOnly: true,
 			secure: process.env.NODE_ENV === 'production',
@@ -24,7 +24,7 @@ export async function createUserHandler(req: Request, res: Response): Promise<vo
 			maxAge: 78 * 60 * 60 * 1000 // 3 days
 		});
 
-		res.json(user);
+		res.status(201).json(user);
 	} catch (e: any) {
 		res.status(409).json({ err: { message: "user already exist with that email" } });
 	}
@@ -93,7 +93,7 @@ export async function updateUserHandler(req: Request, res: Response): Promise<vo
 		if (token) {
 			const { valid, expired, decoded } = verifyJwt(token);
 			if (valid && !expired && decoded) {
-				log(decoded);
+				// log(decoded);
 				const userFound = await updateUser({ _id: decoded.id, }, data);
 				if (userFound) {
 					const token = signJwt(userFound._id, { expiresIn: "1d" });
@@ -130,7 +130,7 @@ export async function deleteUserHandler(req: Request, res: Response): Promise<vo
 		if (token) {
 			const { valid, expired, decoded } = verifyJwt(token);
 			if (valid && !expired && decoded) {
-				log(decoded);
+				// log(decoded);
 				const userFound = await deleteUser({ _id: decoded.id, });
 				if (userFound) {
 					// const isPasswordAMatch = await comparePassword(password, userFound.password);
